@@ -4,7 +4,12 @@
   "description": "Alea Dice is a PWA tool to roll dices",
   "icons": [
     {
-      "src": "d100.svg",
+      "src": "/alea/512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/alea/d100.svg",
       "sizes": "any"
     }
   ],
