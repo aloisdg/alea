@@ -55,7 +55,6 @@
             gap: 5px;
         }
 
-
         main>section:last-child input {
             width: 100%;
         }
@@ -77,6 +76,14 @@
             align-items: center;
         }
 
+        .wait {
+            transition: all 0.5s ease-in;
+        }
+
+        .roll {
+            transform: rotate(359deg);
+        }
+
         @media only screen and (max-width: 540px) {
             main>section:last-child {
                 grid-template-columns: 1fr;
@@ -96,7 +103,7 @@
     <main>
         <section>
             <button class="dice" type="button" data-value="2">
-                <img src="coinflip.svg" alt="d2">
+                <img src="crown-coin.svg" alt="d2">
                 <div>
                     <span class="multiplier"></span>d2<span class="additioner"></span>
                 </div>
@@ -180,91 +187,8 @@
         </form>
     </dialog>
 
-
-    <script>
-        //The maximum is inclusive and the minimum is 1
-        const roll = (max) => Math.floor(Math.random() * max + 1);
-        const forceSymbol = (n) => n < 0 ? n : `+${n}`;
-        const range = (start, count) => new Array(count).fill(0).map((_, i) => start + i);
-        const repeat = (count, f) => new Array(count).fill(0).map(_ => f());
-        const sum = (list) => list.reduce((a, b) => a + b, 0);
-    </script>
-    <script>
-        const subCount = document.querySelector("#subCount");
-        const addCount = document.querySelector("#addCount");
-        const subBonus = document.querySelector("#subBonus");
-        const addBonus = document.querySelector("#addBonus");
-
-        const updateMultiplier = (value) => {
-            subCount.disabled = (value === 1);
-            [...document.querySelectorAll(".multiplier")].forEach(x => {
-                x.textContent = value === 1 ? "" : value;
-            })
-        }
-
-        const updateAdditioner = (value) => {
-            [...document.querySelectorAll(".additioner")].forEach(x => {
-                x.textContent = value === 0 ? "" : forceSymbol(value);
-            })
-        }
-
-        addBonus.onclick = () => {
-            const previous = parseInt(document.querySelector("#bonus").value);
-            const value = previous + 1;
-            document.querySelector("#bonus").value = value;
-            updateAdditioner(value);
-        }
-
-        subBonus.onclick = () => {
-            const previous = parseInt(document.querySelector("#bonus").value);
-            const value = previous - 1;
-            document.querySelector("#bonus").value = value;
-            updateAdditioner(value);
-        }
-
-        addCount.onclick = () => {
-            const previous = parseInt(document.querySelector("#count").value);
-            const value = previous + 1;
-            document.querySelector("#count").value = value;
-            updateMultiplier(value);
-        }
-
-        subCount.onclick = () => {
-            const previous = parseInt(document.querySelector("#count").value);
-            const value = previous - 1;
-            document.querySelector("#count").value = value;
-            updateMultiplier(value);
-        }
-
-        document.querySelector("#count").onchange = e => {
-            updateMultiplier(parseInt(e.target.value));
-        }
-
-        document.querySelector("#bonus").onchange = e => {
-            updateAdditioner(parseInt(e.target.value));
-        }
-
-        [...document.querySelectorAll(".dice")].forEach(d => {
-            const value = parseInt(d.dataset.value);
-            d.onclick = e => {
-                console.log(1);
-                const multiplier = parseInt(document.querySelector("#count").value);
-                const additioner = parseInt(document.querySelector("#bonus").value);
-                const rolls = repeat(multiplier, () => roll(value));
-
-                favDialog.querySelector(".ask").textContent = `${multiplier}d${value}${additioner === 0 ? "" : forceSymbol(additioner)}`;
-                favDialog.querySelector(".sum").textContent = sum(rolls) + additioner;
-                favDialog.querySelector(".rolls").textContent = rolls.join(", ");
-                favDialog.showModal();
-
-            }
-        })
-
-        updateMultiplier(1);
-        updateAdditioner(0);
-
-
-    </script>
+    <script src="lib.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>
