@@ -8,7 +8,7 @@
       "sizes": "any"
     }
   ],
-  "start_url": "/index.html",
+  "start_url": "/alea/index.html",
   "display": "fullscreen",
   "theme_color": "#202B38",
   "background_color": "#202B38"
