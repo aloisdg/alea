@@ -17,39 +17,31 @@ const updateAdditioner = (value) => {
 };
 
 addBonus.onclick = () => {
-  const previous = parseInt(document.querySelector("#bonus").value);
+  const previous = parseInt(document.querySelector("#bonus").textContent);
   const value = previous + 1;
-  document.querySelector("#bonus").value = value;
+  document.querySelector("#bonus").textContent = value === 0 ? 0 : forceSymbol(value)
   updateAdditioner(value);
 };
 
 subBonus.onclick = () => {
-  const previous = parseInt(document.querySelector("#bonus").value);
+  const previous = parseInt(document.querySelector("#bonus").textContent);
   const value = previous - 1;
-  document.querySelector("#bonus").value = value;
+  document.querySelector("#bonus").textContent = value === 0 ? 0 : forceSymbol(value);
   updateAdditioner(value);
 };
 
 addCount.onclick = () => {
-  const previous = parseInt(document.querySelector("#count").value);
+  const previous = parseInt(document.querySelector("#count").textContent);
   const value = previous + 1;
-  document.querySelector("#count").value = value;
+  document.querySelector("#count").textContent = `${value}d`;
   updateMultiplier(value);
 };
 
 subCount.onclick = () => {
-  const previous = parseInt(document.querySelector("#count").value);
+  const previous = parseInt(document.querySelector("#count").textContent);
   const value = previous - 1;
-  document.querySelector("#count").value = value;
+  document.querySelector("#count").textContent = `${value}d`;
   updateMultiplier(value);
-};
-
-document.querySelector("#count").onchange = (e) => {
-  updateMultiplier(parseInt(e.target.value));
-};
-
-document.querySelector("#bonus").onchange = (e) => {
-  updateAdditioner(parseInt(e.target.value));
 };
 
 const displayDialog = (multiplier, additioner, value, rolls) => {
@@ -64,8 +56,8 @@ const displayDialog = (multiplier, additioner, value, rolls) => {
 [...document.querySelectorAll(".dice")].forEach((d) => {
   const value = parseInt(d.dataset.value);
   d.onclick = (e) => {
-    const multiplier = parseInt(document.querySelector("#count").value);
-    const additioner = parseInt(document.querySelector("#bonus").value);
+    const multiplier = parseInt(document.querySelector("#count").textContent);
+    const additioner = parseInt(document.querySelector("#bonus").textContent);
     const rolls = repeat(multiplier, () => roll(value));
 
     d.firstElementChild.classList.add("wait");

@@ -6,99 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alea</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     <link rel="manifest" href="alea.webmanifest">
     <link rel="icon" href="d100.svg">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100%;
-            margin-top: 0;
-            margin-bottom: 0;
-        }
-
-        button {
-            margin-right: 0;
-        }
-
-        body {
-            display: grid;
-            grid-template-rows: auto 1fr auto;
-        }
-
-        main {
-            display: grid;
-            grid-template-rows: 1fr auto;
-            gap: 15px;
-        }
-
-        main>section:first-child {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 1fr 1fr 1fr;
-            gap: 15px;
-        }
-
-        main>section:last-child {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        main>section:last-child>div>div {
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: 5px;
-        }
-
-        main>section:last-child input {
-            width: 100%;
-        }
-
-        .dice {
-            display: flex;
-            align-items: center;
-            flex-flow: column;
-            justify-content: center;
-        }
-
-        .dice>img {
-            max-height: 180px;
-            object-fit: fill;
-        }
-
-        header>h1 {
-            display: flex;
-            align-items: center;
-        }
-
-        .wait {
-            transition: all 0.5s ease-in;
-        }
-
-        .roll {
-            transform: rotate(359deg);
-        }
-
-        @media only screen and (max-width: 540px) {
-            main>section:last-child {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto auto;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <header>
         <h1>
             <img src="d100.svg" alt="d100" style="height:40px">
-            Alea
+            <span>Alea</span>
         </h1>
+        <button>history</button>
     </header>
     <main>
         <section>
@@ -160,20 +80,14 @@
         </section>
         <section>
             <div>
-                <label for="count">Count</label>
-                <div>
-                    <button type="button" id="subCount">-</button>
-                    <input type="number" name="count" id="count" min="1" value="1">
-                    <button type="button" id="addCount">+</button>
-                </div>
+                <button type="button" id="subCount">-</button>
+                <div id="count">1d</div>
+                <button type="button" id="addCount">+</button>
             </div>
             <div>
-                <label for="bonus">Bonus</label>
-                <div>
-                    <button type="button" id="subBonus">-</button>
-                    <input type="number" name="bonus" id="bonus" value="0">
-                    <button type="button" id="addBonus">+</button>
-                </div>
+                <button type="button" id="subBonus">-</button>
+                <div id="bonus">0</div>
+                <button type="button" id="addBonus">+</button>
             </div>
         </section>
     </main>
