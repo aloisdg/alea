@@ -44,9 +44,8 @@ main > section:last-child > div {
 }
 
 main > section:last-child > div > button {
-    font-size: 24px;
-  }
-  
+  font-size: 24px;
+}
 
 #bonus,
 #count {
@@ -54,7 +53,6 @@ main > section:last-child > div > button {
   place-items: center;
   font-size: 32px;
   width: 100%;
-
 }
 
 .dice {
@@ -74,6 +72,15 @@ header > h1 {
   align-items: center;
 }
 
+header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+/* header > button {
+  margin: 40px 0;
+} */
+
 .wait {
   transition: all 0.45s ease-in;
 }
@@ -83,7 +90,7 @@ header > h1 {
 }
 
 #favDialog {
-    min-width: 66%; 
+  min-width: 66%;
 }
 
 @media only screen and (max-width: 540px) {
