@@ -124,6 +124,6 @@ window.addEventListener("beforeinstallprompt", (e) => {
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
-    navigator.serviceWorker.register("/sw.js");
+    navigator.serviceWorker.register("/alea/sw.js");
   });
 }
