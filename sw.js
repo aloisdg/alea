@@ -1,4 +1,4 @@
-self.importScripts("data/games.js");
+// self.importScripts("data/games.js");
 
 const cacheName = "alea-v1";
 const contentToCache = [
