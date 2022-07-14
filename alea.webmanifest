@@ -1,7 +1,7 @@
 {
   "name": "Alea Dice",
   "short_name": "alea",
-  "description": "Alea Dice is a classic app to roll dice",
+  "description": "Alea Dice is a PWA tool to roll dices",
   "icons": [
     {
       "src": "d100.svg",
