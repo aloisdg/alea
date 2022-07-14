@@ -1,0 +1,15 @@
+{
+  "name": "Alea Dice",
+  "short_name": "alea",
+  "description": "Alea Dice is a classic app to roll dice",
+  "icons": [
+    {
+      "src": "d100.svg",
+      "sizes": "any"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "fullscreen",
+  "theme_color": "#202B38",
+  "background_color": "#202B38"
+}

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alea</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <link rel="manifest" href="alea.webmanifest">
+    <link rel="icon" href="d100.svg">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        button {
+            margin-right: 0;
+        }
+
+        body {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+        }
+
+        main {
+            display: grid;
+            grid-template-rows: 1fr auto;
+            gap: 15px;
+        }
+
+        main>section:first-child {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        main>section:last-child {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        main>section:last-child>div>div {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 5px;
+        }
+
+
+        main>section:last-child input {
+            width: 100%;
+        }
+
+        .dice {
+            display: flex;
+            align-items: center;
+            flex-flow: column;
+            justify-content: center;
+        }
+
+        .dice>img {
+            max-height: 180px;
+            object-fit: fill;
+        }
+
+        header>h1 {
+            display: flex;
+            align-items: center;
+        }
+
+        @media only screen and (max-width: 540px) {
+            main>section:last-child {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>
+            <img src="d100.svg" alt="d100" style="height:40px">
+            Alea
+        </h1>
+    </header>
+    <main>
+        <section>
+            <button class="dice" type="button" data-value="2">
+                <img src="coinflip.svg" alt="d2">
+                <div>
+                    <span class="multiplier"></span>d2<span class="additioner"></span>
+                </div>
+            </button>
+            <button class="dice" type="button" data-value="3">
+                <img src="d3.svg" alt="d3">
+                <div>
+                    <span class="multiplier"></span>d3<span class="additioner"></span>
+                </div>
+            </button>
+            <button class="dice" type="button" data-value="4">
+                <img src="d4.svg" alt="d4">
+                <div>
+                    <span class="multiplier"></span>d4<span class="additioner"></span>
+                </div>
+            </button>
+            <button class="dice" type="button" data-value="6">
+                <img src="d6.svg" alt="d6">
+                <div>
+                    <span class="multiplier"></span>d6<span class="additioner"></span>
+                </div>
+            </button>
+            <button class="dice" type="button" data-value="8">
+                <img src="d8.svg" alt="d8">
+                <div>
+                    <span class="multiplier"></span>d8<span class="additioner"></span>
+                </div>
+            </button>
+            <button class="dice" type="button" data-value="10">
+                <img src="d10.svg" alt="d10">
+                <div>
+                    <span class="multiplier"></span>d10<span class="additioner"></span>
+                </div>
+            </button>
+            <button class="dice" type="button" data-value="12">
+                <img src="d12.svg" alt="d12">
+                <div>
+                    <span class="multiplier"></span>d12<span class="additioner"></span>
+                </div>
+            </button>
+            <button class="dice" type="button" data-value="20">
+                <img src="d20.svg" alt="d20">
+                <div>
+                    <span class="multiplier"></span>d20<span class="additioner"></span>
+                </div>
+            </button>
+            <button class="dice" type="button" data-value="100">
+                <img src="d100.svg" alt="d100">
+                <div>
+                    <span class="multiplier"></span>d100<span class="additioner"></span>
+                </div>
+            </button>
+
+        </section>
+        <section>
+            <div>
+                <label for="count">Count</label>
+                <div>
+                    <button type="button" id="subCount">-</button>
+                    <input type="number" name="count" id="count" min="1" value="1">
+                    <button type="button" id="addCount">+</button>
+                </div>
+            </div>
+            <div>
+                <label for="bonus">Bonus</label>
+                <div>
+                    <button type="button" id="subBonus">-</button>
+                    <input type="number" name="bonus" id="bonus" value="0">
+                    <button type="button" id="addBonus">+</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <dialog id="favDialog" style="text-align: center;">
+        <p class="ask"></p>
+        <h1 class="sum"></h1>
+        <p class="rolls"></p>
+        <form method="dialog">
+            <button>OK</button>
+        </form>
+    </dialog>
+
+
+    <script>
+        //The maximum is inclusive and the minimum is 1
+        const roll = (max) => Math.floor(Math.random() * max + 1);
+        const forceSymbol = (n) => n < 0 ? n : `+${n}`;
+        const range = (start, count) => new Array(count).fill(0).map((_, i) => start + i);
+        const repeat = (count, f) => new Array(count).fill(0).map(_ => f());
+        const sum = (list) => list.reduce((a, b) => a + b, 0);
+    </script>
+    <script>
+        const subCount = document.querySelector("#subCount");
+        const addCount = document.querySelector("#addCount");
+        const subBonus = document.querySelector("#subBonus");
+        const addBonus = document.querySelector("#addBonus");
+
+        const updateMultiplier = (value) => {
+            subCount.disabled = (value === 1);
+            [...document.querySelectorAll(".multiplier")].forEach(x => {
+                x.textContent = value === 1 ? "" : value;
+            })
+        }
+
+        const updateAdditioner = (value) => {
+            [...document.querySelectorAll(".additioner")].forEach(x => {
+                x.textContent = value === 0 ? "" : forceSymbol(value);
+            })
+        }
+
+        addBonus.onclick = () => {
+            const previous = parseInt(document.querySelector("#bonus").value);
+            const value = previous + 1;
+            document.querySelector("#bonus").value = value;
+            updateAdditioner(value);
+        }
+
+        subBonus.onclick = () => {
+            const previous = parseInt(document.querySelector("#bonus").value);
+            const value = previous - 1;
+            document.querySelector("#bonus").value = value;
+            updateAdditioner(value);
+        }
+
+        addCount.onclick = () => {
+            const previous = parseInt(document.querySelector("#count").value);
+            const value = previous + 1;
+            document.querySelector("#count").value = value;
+            updateMultiplier(value);
+        }
+
+        subCount.onclick = () => {
+            const previous = parseInt(document.querySelector("#count").value);
+            const value = previous - 1;
+            document.querySelector("#count").value = value;
+            updateMultiplier(value);
+        }
+
+        document.querySelector("#count").onchange = e => {
+            updateMultiplier(parseInt(e.target.value));
+        }
+
+        document.querySelector("#bonus").onchange = e => {
+            updateAdditioner(parseInt(e.target.value));
+        }
+
+        [...document.querySelectorAll(".dice")].forEach(d => {
+            const value = parseInt(d.dataset.value);
+            d.onclick = e => {
+                console.log(1);
+                const multiplier = parseInt(document.querySelector("#count").value);
+                const additioner = parseInt(document.querySelector("#bonus").value);
+                const rolls = repeat(multiplier, () => roll(value));
+
+                favDialog.querySelector(".ask").textContent = `${multiplier}d${value}${additioner === 0 ? "" : forceSymbol(additioner)}`;
+                favDialog.querySelector(".sum").textContent = sum(rolls) + additioner;
+                favDialog.querySelector(".rolls").textContent = rolls.join(", ");
+                favDialog.showModal();
+
+            }
+        })
+
+        updateMultiplier(1);
+        updateAdditioner(0);
+
+
+    </script>
+</body>
+
+</html>
