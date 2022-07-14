@@ -19,14 +19,16 @@ const updateAdditioner = (value) => {
 addBonus.onclick = () => {
   const previous = parseInt(document.querySelector("#bonus").textContent);
   const value = previous + 1;
-  document.querySelector("#bonus").textContent = value === 0 ? 0 : forceSymbol(value)
+  document.querySelector("#bonus").textContent =
+    value === 0 ? 0 : forceSymbol(value);
   updateAdditioner(value);
 };
 
 subBonus.onclick = () => {
   const previous = parseInt(document.querySelector("#bonus").textContent);
   const value = previous - 1;
-  document.querySelector("#bonus").textContent = value === 0 ? 0 : forceSymbol(value);
+  document.querySelector("#bonus").textContent =
+    value === 0 ? 0 : forceSymbol(value);
   updateAdditioner(value);
 };
 
@@ -53,9 +55,20 @@ const displayDialog = (multiplier, additioner, value, rolls) => {
   favDialog.showModal();
 };
 
+document.querySelector("#count").ondblclick = (e) => {
+  e.target.textContent = "1d";
+  updateMultiplier(1);
+};
+
+document.querySelector("#bonus").ondblclick = (e) => {
+    e.target.textContent = "0";
+    updateAdditioner(0);
+  };
+  
+
 [...document.querySelectorAll(".dice")].forEach((d) => {
   const value = parseInt(d.dataset.value);
-  d.onclick = (e) => {
+  d.onclick = () => {
     const multiplier = parseInt(document.querySelector("#count").textContent);
     const additioner = parseInt(document.querySelector("#bonus").textContent);
     const rolls = repeat(multiplier, () => roll(value));
@@ -66,9 +79,17 @@ const displayDialog = (multiplier, additioner, value, rolls) => {
       displayDialog(multiplier, additioner, value, rolls);
       d.firstElementChild.classList.remove("wait");
       d.firstElementChild.classList.remove("roll");
-    }, 500);
+    }, 450);
   };
 });
 
 updateMultiplier(1);
 updateAdditioner(0);
+
+const closeDialog = (event) => {
+  if (event.target.contains(favDialog)) {
+    favDialog.close();
+  }
+};
+
+document.addEventListener("click", closeDialog);
